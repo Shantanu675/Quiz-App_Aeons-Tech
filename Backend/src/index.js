@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://quiz-1-dnu2.onrender.com', 'https://quiz-application-shantanu.netlify.app'],
+  origin: ['https://quiz-shantanu.netlify.app', 'http://localhost:5173', 'https://quiz-1-dnu2.onrender.com', 'https://quiz-application-shantanu.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
