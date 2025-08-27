@@ -14,7 +14,7 @@ if (!process.env.MONGO_URI) {
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://your-frontend-render-url.onrender.com'],
+  origin: ['http://localhost:5173', 'https://your-frontend-render-url.onrender.com', 'https://quiz-1-dnu2.onrender.com/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
