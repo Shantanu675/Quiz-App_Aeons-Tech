@@ -10,10 +10,14 @@ module.exports = (roles = []) => {
 
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = decoded;
-      if (roles.length && !roles.includes(decoded.role)) {
+      // Handle both { id, role } and { user: { id, role } } payloads
+      req.user = decoded.user ? { id: decoded.user.id, role: decoded.user.role } : { id: decoded.id, role: decoded.role };
+      
+      // Validate role if roles are specified
+      if (roles.length && (!req.user.role || !roles.includes(req.user.role))) {
         return res.status(403).json({ msg: 'Access denied' });
       }
+      
       next();
     } catch (err) {
       console.error('Auth error:', err);
