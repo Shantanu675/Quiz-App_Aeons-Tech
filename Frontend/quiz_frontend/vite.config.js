@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://quiz-application-4ati.onrender.com/api' // Proxy API calls to backend
+      '/api': 'https://quiz-api-eqba.onrender.com' // Proxy API calls to backend
     }
   }
 });
