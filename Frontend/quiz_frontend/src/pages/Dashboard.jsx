@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../api/axios.js';
 import QuizCard from '../components/QuizCard.jsx';
+import { motion } from 'framer-motion';
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const [quizzes, setQuizzes] = useState([]);
   const [error, setError] = useState('');
-
+  
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
@@ -37,25 +38,46 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">Available Quizzes</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <div className= "w-full p-6 bg-gradient-to-b from-purple-100 via-pink-100 to-yellow-100  min-h-screen">
+      <motion.h2 
+        initial={{ opacity: 0, y: -20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.5 }}
+        className="text-4xl font-bold mb-6 text-center text-purple-700 drop-shadow-md"
+      >
+        🎓 Available Quizzes
+      </motion.h2>
+
+      {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+
       {quizzes.length === 0 ? (
-        <p>No quizzes available.</p>
+        <motion.p 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          className="text-center text-lg text-gray-700"
+        >
+          No quizzes available.
+        </motion.p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {quizzes.map(quiz => (
-            <div key={quiz._id} className="border p-4 rounded">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {quizzes.map((quiz, index) => (
+            <motion.div 
+              key={quiz._id}
+              initial={{ opacity: 0, scale: 0.9 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className={`mt-10 p-5 rounded-2xl shadow-lg bg-purple-200 hover:scale-105 hover:shadow-2xl transition-transform`}
+            >
               <QuizCard quiz={quiz} />
               {user?.role === 'instructor' && !quiz.isPublished && (
                 <button
                   onClick={() => handlePublish(quiz._id)}
-                  className="mt-2 bg-blue-500 text-white p-2 rounded"
+                  className="mt-4 w-full bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold py-2 px-4 rounded-xl shadow-md hover:shadow-lg hover:from-green-500 hover:to-green-700 transition"
                 >
-                  Publish
+                  🚀 Publish
                 </button>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       )}

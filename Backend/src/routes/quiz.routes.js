@@ -44,6 +44,7 @@ router.get('/:id', auth(['admin', 'instructor', 'student']), [
 router.post('/', auth(['admin', 'instructor']), [
   body('title').notEmpty().withMessage('Title is required'),
   body('description').optional().isString(),
+  body('date').optional().isString(),
   body('timeLimitMinutes').isInt({ min: 0 }).withMessage('Time limit must be non-negative'),
   body('questions').isArray({ min: 1 }).withMessage('At least one question required'),
   body('questions.*.text').notEmpty().withMessage('Question text is required'),
