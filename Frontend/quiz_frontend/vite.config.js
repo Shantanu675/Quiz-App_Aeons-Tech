@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://localhost:5000' // Proxy API calls to backend
+      // '/api': 'https://quiz-application-shantanu.onrender.com' // Proxy API calls to backend
+      '/api': process.env.VITE_API_URL
     }
   }
 });
